@@ -1,7 +1,9 @@
 package com.sideproject.shop.domain.itemList;
 
 import com.sideproject.shop.domain.Item;
-import jakarta.persistence.Entity;
+
+import javax.persistence.Entity;
+
 
 @Entity
 public class GraphicCard extends Item {

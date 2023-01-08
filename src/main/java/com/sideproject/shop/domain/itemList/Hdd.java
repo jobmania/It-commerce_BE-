@@ -1,9 +1,9 @@
 package com.sideproject.shop.domain.itemList;
 
 import com.sideproject.shop.domain.Item;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
+import javax.persistence.Entity;
+
 
 @Entity
 public class Hdd extends Item {

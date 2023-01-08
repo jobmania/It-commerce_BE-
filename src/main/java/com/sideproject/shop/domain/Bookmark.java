@@ -1,6 +1,9 @@
 package com.sideproject.shop.domain;
 
-import jakarta.persistence.*;
+
+import com.sideproject.shop.member.Member;
+
+import javax.persistence.*;
 
 @Entity
 public class Bookmark {
@@ -9,7 +12,7 @@ public class Bookmark {
     @Column(name = "BOOKMARK_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMEBER_ID")
     private Member member;
 }

@@ -1,8 +1,8 @@
 package com.sideproject.shop.domain;
 
-import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity

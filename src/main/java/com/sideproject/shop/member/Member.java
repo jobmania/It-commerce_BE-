@@ -1,7 +1,9 @@
-package com.sideproject.shop.domain;
+package com.sideproject.shop.member;
 
-import jakarta.persistence.*;
+import com.sideproject.shop.domain.Bookmark;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
