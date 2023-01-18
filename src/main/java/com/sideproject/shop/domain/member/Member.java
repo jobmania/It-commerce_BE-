@@ -1,4 +1,4 @@
-package com.sideproject.shop.member;
+package com.sideproject.shop.domain.member;
 
 import com.sideproject.shop.domain.Bookmark;
 
