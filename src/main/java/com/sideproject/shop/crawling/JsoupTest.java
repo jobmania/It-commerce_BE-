@@ -1,4 +1,4 @@
-package com.sideproject.shop;
+package com.sideproject.shop.crawling;
 
 
 import org.jsoup.Jsoup;
@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-public class App {
+public class JsoupTest {
 
     public static void main(String[] args){
 

@@ -28,6 +28,11 @@ dependencies {
 
     // 크롤링 jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    // 셀레니움을 적용해보자 !!
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.8.0'
+
 }
 
 test {
