@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class App {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         // 11번가
 
@@ -23,23 +23,37 @@ public class App {
         sb.append("#sortCd%%SPS%%11번가%20인기순%%1$$pageNum%%1%%page%%2");
 
         String uri = sb.toString();
-        System.out.println(uri);
+        System.out.println(uri); // 정상적으로 uri 입력 완료!
 
 
         ///////   크롤링  /////////// CSS Selector를 사용하여 HTML의 데이터를 추출할 수 있는 Java 라이브러리이다.
 
-        Document document = Jsoup.connect(uri).get();  // HTML 추출..
-        System.out.println(document);  // 잘들고옴
+        try{
+            Document document = Jsoup.connect(uri).get();  // HTML 추출..
+//            System.out.println(document);  // 잘들고옴
 
-        Elements images = document.getElementsByClass("c_prd_thumb");
-        Elements info = document.getElementsByClass("c_prd_name c_prd_name_row_1");
+            Elements contents = document.select("div.c_prd_thumb a"); ///  들고 오는게 문제임..
+            for (Element content : contents) {
 
-        for (Element image : images) {
-            System.out.println(image);
+                System.out.println((content==null));
+            }
+
+
+            System.out.println("==================");
+
+
+
+
+
+
+
+
+            System.out.println("!!!!!!긑!!!!!!");
+        }catch (IOException e){
+           e.getMessage();
         }
 
 
-        System.out.println("긑");
     }
 
 

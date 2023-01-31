@@ -1,4 +1,4 @@
-package com.sideproject.shop.Repository;
+package com.sideproject.shop.repository;
 
 import com.sideproject.shop.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
