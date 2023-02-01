@@ -30,19 +30,29 @@ public class Shop_WeMakePrice {
         List<Cpu> cpuList = new ArrayList<>();
 
         try {
-            driverWMP.get("https://search.wemakeprice.com/search?search_cate=top&keyword=CPU&isRec=1&_service=5&_type=3");
+            driverWMP.get("https://search.wemakeprice.com/search?searchType=DEFAULT&search_cate=top&keyword=CPU&isRec=1&_service=5&_type=3&sort=sales&isPopularCategory=Y");
 //#_contents > div > div.search_wrap > div:nth-child(1) > div.search_box_listwrap.tab_cont > div > div:nth-child(1) > a > div.list_thum > img
+//
             List<WebElement> elements = driverWMP.findElements(By.className("list_thum"));
             for (WebElement element : elements) {
-                String attribute = element.findElement(By.tagName("img")).getAttribute("src");
-                System.out.println(attribute);
+                Thread.sleep(5000);
+                String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
+                String itemName = element.findElement(By.tagName("img")).getAttribute("alt");
+                System.out.println("imgUrl = " + imgUrl);
+                System.out.println("itemName = " + itemName);
+                strArray.add(itemName);
+                imgArray.add(imgUrl);
             }
 
 
-        }finally {
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
             driverWMP.quit();
         }
 
+        System.out.println("imgArray = " + imgArray);
+        System.out.println("strArray = " + strArray);
 
     }
 }

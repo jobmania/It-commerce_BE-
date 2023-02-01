@@ -72,7 +72,7 @@ public class Shop_Auction {
                     .until(driver -> driver.findElements(By.className("image--itemcard")));
 
             for (WebElement element : elementImg) {
-                Thread.sleep(1000); //1초 기다림. 로딩시간
+                Thread.sleep(5000);; //1초 기다림. 로딩시간
                 String imgUrl = element.getAttribute("src");
                 imgArray.add(imgUrl);
             }
