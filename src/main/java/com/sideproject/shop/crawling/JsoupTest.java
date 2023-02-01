@@ -42,12 +42,6 @@ public class JsoupTest {
             System.out.println("==================");
 
 
-
-
-
-
-
-
             System.out.println("!!!!!!긑!!!!!!");
         }catch (IOException e){
            e.getMessage();

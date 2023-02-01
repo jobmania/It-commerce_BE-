@@ -1,5 +1,6 @@
 package com.sideproject.shop.crawling;
 
+import com.sideproject.shop.domain.itemList.Cpu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SeleniumTest {
@@ -30,8 +32,9 @@ public class SeleniumTest {
         WebDriver driver = new ChromeDriver(options);
         List<String> strArray = new ArrayList<>();
         List<String> priArray = new ArrayList<>();
+        List<Cpu> cpuList = new ArrayList<>();
         try {
-            driver.get("https://search.11st.co.kr/Search.tmall?kwd=cpu");
+            driver.get("https://search.11st.co.kr/Search.tmall?kwd=cpu#sortCd%%SPS%%11%EB%B2%88%EA%B0%80%20%EC%9D%B8%EA%B8%B0%EC%88%9C%%1$$pageNum%%1%%page%%2");
             List<WebElement> elements = driver.findElements(By.className("c_card"));
 
 
@@ -44,9 +47,12 @@ public class SeleniumTest {
                 strArray.add(itemName);
 
                 //가격
-                String text = element.findElement(By.className("c_prd_price")).findElement(By.className("value")).getText();
-                priArray.add(text);
+                String price = element.findElement(By.className("c_prd_price")).findElement(By.className("value")).getText();
+                priArray.add(price);
                 System.out.println("=+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                Cpu cpu = new Cpu(itemName,price);
+                cpuList.add(cpu);
 
             }
 
@@ -60,7 +66,8 @@ public class SeleniumTest {
 
         System.out.println(strArray);
         System.out.println(priArray);
-
+        System.out.println(cpuList.get(0).getItemName());
+        System.out.println(cpuList.get(0).getPrice()); // 저장 잘됨..
 
 
     }
