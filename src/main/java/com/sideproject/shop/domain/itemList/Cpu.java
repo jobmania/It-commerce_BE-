@@ -23,4 +23,25 @@ public class Cpu extends Item {
         this.itemName = itemName;
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Cpu{" +
+                "coreCount='" + coreCount + '\'' +
+                ", threadCount='" + threadCount + '\'' +
+                ", normalClock='" + normalClock + '\'' +
+                ", maxClock='" + maxClock + '\'' +
+                ", ddr='" + ddr + '\'' +
+                ", id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", price='" + price + '\'' +
+                ", itemCategory=" + itemCategory +
+                ", siteName='" + siteName + '\'' +
+                ", siteAddress='" + siteAddress + '\'' +
+                ", maker='" + maker + '\'' +
+                ", dateTime=" + dateTime +
+                ", updateTime=" + updateTime +
+                ", viewCount=" + viewCount +
+                '}';
+    }
 }
