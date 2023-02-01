@@ -1,15 +1,17 @@
 package com.sideproject.shop.crawling;
 
 import com.sideproject.shop.domain.itemList.Cpu;
+import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shop_Coupang {
+public class Shop_WeMakePrice {
     public static void main(String[] args) {
         //세션시작
         //크롬 설정을 담은 객체 생성
@@ -20,22 +22,27 @@ public class Shop_Coupang {
         options.addArguments("--disable-popup-blocking"); // 팝업 무시
 
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL); //Normal: 로드 이벤트 실행이 반환 될 때 까지 기다린다.
-        WebDriver driverCoupang = new ChromeDriver(options);
+        WebDriver driverWMP = new ChromeDriver(options);
         List<String> strArray = new ArrayList<>();
         List<String> priArray = new ArrayList<>();
         List<String> imgArray = new ArrayList<>();
         List<String> siteArray = new ArrayList<>();
-
-
         List<Cpu> cpuList = new ArrayList<>();
 
         try {
-                // 광고가 포함되어있음.
+            driverWMP.get("https://search.wemakeprice.com/search?search_cate=top&keyword=CPU&isRec=1&_service=5&_type=3");
+//#_contents > div > div.search_wrap > div:nth-child(1) > div.search_box_listwrap.tab_cont > div > div:nth-child(1) > a > div.list_thum > img
+            List<WebElement> elements = driverWMP.findElements(By.className("list_thum"));
+            for (WebElement element : elements) {
+                String attribute = element.findElement(By.tagName("img")).getAttribute("src");
+                System.out.println(attribute);
+            }
 
-            driverCoupang.get("");
 
         }finally {
-            driverCoupang.quit();
+            driverWMP.quit();
         }
+
+
     }
 }

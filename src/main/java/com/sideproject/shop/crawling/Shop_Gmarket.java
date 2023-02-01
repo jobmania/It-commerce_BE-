@@ -13,8 +13,6 @@ import java.util.List;
 
 public class Shop_Gmarket {
 
-    // https://browse.gmarket.co.kr/search?keyword=cpu&s=8  < 인기순
-
     public static void main(String[] args) {
 
         //세션시작
@@ -37,7 +35,7 @@ public class Shop_Gmarket {
 
         try {
             driverGmark.get("https://browse.gmarket.co.kr/search?keyword=cpu&s=8");
-//#section__inner-content-body-container > div:nth-child(2) > div:nth-child(1) > div > div.box__image
+
             List<WebElement> elementsImages = driverGmark.findElements(By.className("box__image"));
 
             List<WebElement> elements = driverGmark.findElements(By.className("box__information"));

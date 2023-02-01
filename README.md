@@ -7,3 +7,8 @@
 - 크롤링 : 셀레니움으로 적용해보자
 
 ![img.png](img.png)
+
+
+
+NoSuchElementException // 
+[사이트](https://www.selenium.dev/documentation/webdriver/troubleshooting/errors/) 
