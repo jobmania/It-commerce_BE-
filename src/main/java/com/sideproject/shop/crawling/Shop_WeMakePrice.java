@@ -32,10 +32,12 @@ public class Shop_WeMakePrice {
         try {
             driverWMP.get("https://search.wemakeprice.com/search?searchType=DEFAULT&search_cate=top&keyword=CPU&isRec=1&_service=5&_type=3&sort=sales&isPopularCategory=Y");
 //#_contents > div > div.search_wrap > div:nth-child(1) > div.search_box_listwrap.tab_cont > div > div:nth-child(1) > a > div.list_thum > img
-//
+
+//               // 화면 끝까지 이동해야함.ㅈ
+
             List<WebElement> elements = driverWMP.findElements(By.className("list_thum"));
             for (WebElement element : elements) {
-                Thread.sleep(5000);
+
                 String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
                 String itemName = element.findElement(By.tagName("img")).getAttribute("alt");
                 System.out.println("imgUrl = " + imgUrl);
@@ -45,9 +47,7 @@ public class Shop_WeMakePrice {
             }
 
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
+        }finally {
             driverWMP.quit();
         }
 

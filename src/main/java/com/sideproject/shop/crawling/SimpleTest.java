@@ -23,7 +23,7 @@ public class SimpleTest {
 
 
         for (WebElement element : elements) {
-            Thread.sleep(1000); //1초 기다림. 로딩시간
+//            Thread.sleep(1000); //1초 기다림. 로딩시간
             String src = element.getAttribute("src");
             System.out.println(src);
         }

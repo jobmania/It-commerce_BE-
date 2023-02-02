@@ -71,8 +71,10 @@ public class Shop_Auction {
             List<WebElement> elementImg = new WebDriverWait(driverAuction, Duration.ofSeconds(3)) //대기대기!
                     .until(driver -> driver.findElements(By.className("image--itemcard")));
 
+            // 화면 끝까지 이동해야함.
+
             for (WebElement element : elementImg) {
-                Thread.sleep(5000);; //1초 기다림. 로딩시간
+
                 String imgUrl = element.getAttribute("src");
                 imgArray.add(imgUrl);
             }
