@@ -1,6 +1,7 @@
-package com.sideproject.shop.domain.member;
+package com.sideproject.shop.member.entity;
 
 import com.sideproject.shop.domain.Bookmark;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -8,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +23,5 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Bookmark> bookmarks  = new ArrayList<>();;
+
 }
