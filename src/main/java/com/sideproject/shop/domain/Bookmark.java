@@ -1,7 +1,7 @@
 package com.sideproject.shop.domain;
 
 
-import com.sideproject.shop.domain.member.Member;
+import com.sideproject.shop.member.entity.Member;
 
 import javax.persistence.*;
 
