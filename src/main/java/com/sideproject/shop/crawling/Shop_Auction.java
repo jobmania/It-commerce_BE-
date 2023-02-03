@@ -1,16 +1,14 @@
 package com.sideproject.shop.crawling;
 
 import com.sideproject.shop.domain.itemList.Cpu;
-import org.openqa.selenium.By;
-import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,8 +39,13 @@ public class Shop_Auction {
 
         try {
             driverAuction.get("https://browse.auction.co.kr/search?keyword=CPU&encKeyword=CPU&dom=auction&isSuggestion=No&s=8");
+            WebElement itemCard = driverAuction.findElement(By.className("section--itemcard"));
+            var stTime = new Date().getTime(); //현재시간
+            while (new Date().getTime() < stTime + 10000) { //10초 동안 무한스크롤 지속
+                Thread.sleep(500); //0.1초 기다림. 로딩시간
+                ((JavascriptExecutor)driverAuction).executeScript("window.scrollTo(0, document.body.scrollHeight)", itemCard);
+            }
 
-            Thread.sleep(1000); //1초 기다림. 로딩시간
 
 
             List<WebElement> elements = new WebDriverWait(driverAuction, Duration.ofSeconds(3))
@@ -56,7 +59,8 @@ public class Shop_Auction {
                 String itemPrice = element.findElement(By.className("text--price_seller")).getText();
                 // NoSuchElementException: no such element: Unable to locate element: {"method":"tag name","selector":"img"}
 //                String imgUrl = element.findElement(By.className("section--itemcard_img")).findElement(By.tagName("img")).getAttribute("src");
-
+                System.out.println("==========================================================");
+//                System.out.println(imgUrl);
 //                  #section--inner_content_body_container > div:nth-child(2) > div:nth-child(11) > div > div > div.section--itemcard_img > a > img
 //                #section--inner_content_body_container > div:nth-child(4) > div:nth-child(15) > div > div > div.section--itemcard_img > a > img
                 Cpu cpu = new Cpu(itemName, itemPrice);
@@ -64,20 +68,22 @@ public class Shop_Auction {
                 strArray.add(itemName);
                 priArray.add(itemPrice);
                 siteArray.add(siteUrl);
+//                imgArray.add(imgUrl);
+
             }
 
 
-            // 이미지만 4개이상 못들고온다?
-            List<WebElement> elementImg = new WebDriverWait(driverAuction, Duration.ofSeconds(3)) //대기대기!
-                    .until(driver -> driver.findElements(By.className("image--itemcard")));
-
-            // 화면 끝까지 이동해야함.
-
-            for (WebElement element : elementImg) {
-
-                String imgUrl = element.getAttribute("src");
-                imgArray.add(imgUrl);
-            }
+//            // 이미지만 4개이상 못들고온다?
+//            List<WebElement> elementImg = new WebDriverWait(driverAuction, Duration.ofSeconds(3)) //대기대기!
+//                    .until(driver -> driver.findElements(By.className("image--itemcard")));
+//
+//            // 화면 끝까지 이동해야함.
+//
+//            for (WebElement element : elementImg) {
+//
+//                String imgUrl = element.getAttribute("src");
+//                imgArray.add(imgUrl);
+//            }
 
 
 
