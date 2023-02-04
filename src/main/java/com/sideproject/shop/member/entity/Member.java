@@ -21,6 +21,11 @@ public class Member {
 
     private Long memberName;
 
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
     @OneToMany(mappedBy = "member")
     private List<Bookmark> bookmarks  = new ArrayList<>();;
 
