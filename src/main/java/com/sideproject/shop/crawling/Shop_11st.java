@@ -1,5 +1,6 @@
 package com.sideproject.shop.crawling;
 
+import com.sideproject.shop.domain.Item;
 import com.sideproject.shop.domain.itemList.Cpu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
@@ -8,11 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Shop_11st {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
 
 
         //세션시작
@@ -30,11 +33,16 @@ public class Shop_11st {
         List<Cpu> cpuList = new ArrayList<>();
 
 
+        StringBuilder urlBuilder = new StringBuilder("https://search.11st.co.kr/Search.tmall?kwd="); // URL
+        String inputString = "아이폰11";
+        urlBuilder.append(URLEncoder.encode(inputString, "UTF-8"));  // 주소를 인코딩
+        urlBuilder.append("#sortCd%%SPS%%11번가%20인기순%%1$$pageNum%%1%%page%%2");
+
+        String url = urlBuilder.toString();
+
         try {
-            driver11st.get("https://search.11st.co.kr/Search.tmall?kwd=cpu#sortCd%%SPS%%11번가%20인기순%%1$$pageNum%%1%%page%%2");
+            driver11st.get(url);
             List<WebElement> elements = driver11st.findElements(By.className("c_card"));
-
-
 
 
             for (WebElement element : elements) {
@@ -47,13 +55,9 @@ public class Shop_11st {
                 String price = element.findElement(By.className("c_prd_price")).findElement(By.className("value")).getText();
                 priArray.add(price);
 
-                //이미지 url
 
+                Item item = new Cpu(itemName,price);
 
-
-
-                Cpu cpu = new Cpu(itemName,price);
-                cpuList.add(cpu);
 
             }
 
@@ -67,7 +71,7 @@ public class Shop_11st {
 
         System.out.println(strArray);
         System.out.println(priArray);
-        System.out.println(cpuList.get(0).toString()); // 저장 ok
+//        System.out.println(cpuList.get(0).toString()); // 저장 ok
 
 
 

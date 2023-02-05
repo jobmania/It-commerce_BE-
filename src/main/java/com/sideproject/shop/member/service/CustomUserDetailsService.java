@@ -1,3 +1,4 @@
+/*
 package com.sideproject.shop.member.service;
 
 import com.sideproject.shop.member.repository.MemberRepository;
@@ -14,12 +15,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberRepository.find;
-    }
+//    @Override
+//    @Transactional
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return memberRepository.find;
+//    }
 
 
 
 }
+*/
