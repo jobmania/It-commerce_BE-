@@ -1,5 +1,6 @@
 package com.sideproject.shop.member.controller;
 
+import com.sideproject.shop.jwt.TokenProvider;
 import com.sideproject.shop.member.entity.dto.MemberResponseDto;
 import com.sideproject.shop.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class MemberController {
 
+    private final TokenProvider tokenProvider;
     private final MemberService memberService;
 
     @PostMapping("/signup")

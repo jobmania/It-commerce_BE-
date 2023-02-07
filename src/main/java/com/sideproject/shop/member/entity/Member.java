@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    private Long memberName;
+    private Long email;
 
     private String password;
 
