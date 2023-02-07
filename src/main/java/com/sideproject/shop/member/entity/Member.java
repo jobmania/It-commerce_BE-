@@ -19,7 +19,9 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    private Long email;
+    private String userId;
+
+    private String memberName;
 
     private String password;
 

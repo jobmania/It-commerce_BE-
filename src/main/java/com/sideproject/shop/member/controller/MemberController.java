@@ -1,6 +1,7 @@
 package com.sideproject.shop.member.controller;
 
 import com.sideproject.shop.jwt.TokenProvider;
+import com.sideproject.shop.member.entity.dto.MemberRequestDto;
 import com.sideproject.shop.member.entity.dto.MemberResponseDto;
 import com.sideproject.shop.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +16,10 @@ public class MemberController {
     private final TokenProvider tokenProvider;
     private final MemberService memberService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<MemberResponseDto> signUpMember(){
+    @PostMapping("/auth/signup")  // 회원가입
+    public ResponseEntity<MemberResponseDto> signUpMember(@RequestBody MemberRequestDto memberRequestDto){
 
-        return ResponseEntity.ok(new MemberResponseDto()); // 임ㅅ디로
+        return ResponseEntity.ok(memberService.signUpMember(memberRequestDto)); // 임ㅅ디로
     }
 
     @GetMapping("/checking")
