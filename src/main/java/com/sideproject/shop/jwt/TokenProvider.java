@@ -1,11 +1,9 @@
 package com.sideproject.shop.jwt;
 //토큰 생성, 유효성 검증 로직수행
 
-import com.sideproject.shop.member.entity.Member;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -46,7 +43,7 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(Authentication authentication){ // 컬렉션을 순회하면서 값들을 출력~
+    public TokenDto createToken(Authentication authentication){ // 컬렉션을 순회하면서 값들을 출력~
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -54,12 +51,13 @@ public class TokenProvider implements InitializingBean {
         long now = new Date().getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        return Jwts.builder()
+        String jwtToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.ES512)
                 .setExpiration(validity)
                 .compact();
+        return new TokenDto(jwtToken);
     }
 
 

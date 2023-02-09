@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -17,28 +19,28 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/auth/signup")  // 회원가입
-    public ResponseEntity<MemberResponseDto> signUpMember(@RequestBody MemberRequestDto memberRequestDto){
-
-        return ResponseEntity.ok(memberService.signUpMember(memberRequestDto)); // 임ㅅ디로
+    public ResponseEntity<Object> signUpMember(@RequestBody MemberRequestDto memberRequestDto){
+        return ResponseEntity.ok(memberService.signUpMember(memberRequestDto)); //
     }
 
-    @GetMapping("/checking")
-    public ResponseEntity<String> checkMemberIdDuplication(){
+    @GetMapping("/auth/checking") // 아이디 중복검사
+    public ResponseEntity<?> checkMemberIdDuplication(@RequestBody MemberRequestDto memberRequestDto){
+        return ResponseEntity.ok(memberService.checkMember(memberRequestDto));
+    }
+
+    @GetMapping("/auth/login") // 로그인
+    public ResponseEntity<Object> signInMember(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response){
+
+        return ResponseEntity.ok(memberService.loginMember(memberRequestDto,response));
+    }
+  // @AuthenticationPrincipal UserDetailsImpl userDetails
+    @DeleteMapping("/logout") // 로그아웃
+    public ResponseEntity<?> signOutMember(){
         return ResponseEntity.ok("hello");
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<String> signInMember(){
-        return ResponseEntity.ok("hello");
-    }
-
-    @DeleteMapping("/logout")
-    public ResponseEntity<String> signOutMember(){
-        return ResponseEntity.ok("hello");
-    }
-
-    @GetMapping("/reissue")
-    public ResponseEntity<String> reissueMemberToken(){
+    @GetMapping("/reissue") // 재발급.
+    public ResponseEntity<?> reissueMemberToken(){
         return ResponseEntity.ok("hello");
     }
 

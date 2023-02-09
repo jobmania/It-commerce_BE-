@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    @Transactional
+    @Transactional  // UserDetails 와 Authentication 의 패스워드를 비교하고 검증하는 로직
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return memberRepository.findOneWithAuthoritiesByEmail(email)
                 .map(this::createMember)

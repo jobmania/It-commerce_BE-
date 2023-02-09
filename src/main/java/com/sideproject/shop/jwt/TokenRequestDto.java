@@ -1,4 +1,4 @@
-package com.sideproject.shop.member.entity.dto;
+package com.sideproject.shop.jwt;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

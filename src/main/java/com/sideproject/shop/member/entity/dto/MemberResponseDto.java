@@ -14,7 +14,7 @@ public class MemberResponseDto {
 
 
     public static MemberResponseDto of(Member member) {
-        return new MemberResponseDto(member.getEmail());
+        return new MemberResponseDto(member.getUserId());
     }
 
 }
