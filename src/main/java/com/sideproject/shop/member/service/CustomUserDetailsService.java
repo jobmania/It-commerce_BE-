@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional  // UserDetails 와 Authentication 의 패스워드를 비교하고 검증하는 로직
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return memberRepository.findOneWithAuthoritiesByEmail(email)
+        return memberRepository.findByEmail(email)
                 .map(this::createMember)
                 .orElseThrow(() -> new UsernameNotFoundException(email + "데이터 베이스에 없음"));
     }

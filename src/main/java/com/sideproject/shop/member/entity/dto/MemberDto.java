@@ -17,7 +17,7 @@ public class MemberDto {
 
         public Member toMember(PasswordEncoder passwordEncoder) {
             return Member.builder()
-                    .userId(user_id)
+                    .email(user_id)
                     .password(passwordEncoder.encode(user_pw))
                     .authority(Authority.ROLE_USER)
                     .build();
@@ -33,7 +33,7 @@ public class MemberDto {
 
 
         public static Response of(Member member) {
-            return new Response(member.getUserId());
+            return new Response(member.getEmail());
         }
 
     }

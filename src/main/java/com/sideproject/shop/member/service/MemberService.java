@@ -41,6 +41,9 @@ public class MemberService {
         if (memberRepository.existsByEmail(memberRequestDto.getUser_id())) {
             return ResponseDto.fail("200","가입되어 있습니다.");
         }
+
+        // 아이디, 비번 정규식 검증 로직을 따로 빼자.
+
         return ResponseDto.ok(" ","중복된 아이디가 아니다.");
     }
 
@@ -79,10 +82,14 @@ public class MemberService {
                 .value(tokenDto.getRefreshToken())
                 .build();
 
-        refreshTokenRepository.save(refreshToken);
+//        refreshTokenRepository.save(refreshToken);
 
+        response.setHeader("Authorization","Bearer "+ tokenDto.getAccessToken());
+        response.setHeader("Refresh_Token",tokenDto.getRefreshToken());
 
-        return ResponseDto.ok("DJ","DJA");
+        // 리프레쉬를 레디스에서 보관한다면??
+
+        return ResponseDto.ok(tokenDto,"로그인 성공.");
     }
 
 

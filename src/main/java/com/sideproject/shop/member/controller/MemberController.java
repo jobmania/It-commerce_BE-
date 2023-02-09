@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/user")
 public class MemberController {
 
-    private final TokenProvider tokenProvider;
     private final MemberService memberService;
 
     @PostMapping("/auth/signup")  // 회원가입
@@ -28,7 +27,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.checkMember(memberRequestDto));
     }
 
-    @GetMapping("/auth/login") // 로그인
+    @PostMapping("/auth/login") // 로그인
     public ResponseEntity<Object> signInMember(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response){
 
         return ResponseEntity.ok(memberService.loginMember(memberRequestDto,response));

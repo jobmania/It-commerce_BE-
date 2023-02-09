@@ -7,7 +7,9 @@ import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,46 +24,62 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenProvider implements InitializingBean {
+public class TokenProvider  {
 
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
-    private final String secret;
+    private static final String BEARER_TYPE = "Bearer";
     private final long tokenValidityInMilliseconds;
-    private Key key;
+    private  final Key key;
 
-    public TokenProvider(@Value("${jwt.secret}") String secret,  // prpoerties에서 들고옴.
-                         @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
-        this.secret=secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
+    @Autowired
+    public TokenProvider(
+//            @Value("${jwt.secretKey}") String secret,  // prpoerties에서 들고옴.
+//             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds
+    ) {
+        this.tokenValidityInMilliseconds = 3600 * 1000;
+        byte[] keyBytes = Decoders.BASE64.decode("SDFGSDFGPZZLLZSDFJ0023FAPFHAPOSDHAKP6519684616515JEQPFAXCVNMOADFNP23452GPAS9DUHFALSDJNVAPERU");
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+
     public TokenDto createToken(Authentication authentication){ // 컬렉션을 순회하면서 값들을 출력~
+        // 권한들 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = new Date().getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        Date accessValidity = new Date(now + this.tokenValidityInMilliseconds);
 
-        String jwtToken = Jwts.builder()
+        String accessJwtToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .signWith(key, SignatureAlgorithm.ES512)
-                .setExpiration(validity)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(accessValidity)
                 .compact();
-        return new TokenDto(jwtToken);
+
+        // Refresh Token 생성
+        String refreshJwtToken = Jwts.builder()
+                .setExpiration(new Date(now + this.tokenValidityInMilliseconds * 10))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+
+
+
+        return TokenDto.builder()
+                .grantType(BEARER_TYPE)
+                .accessToken(accessJwtToken)
+                .accessTokenExpiresIn(accessValidity.getTime())
+                .refreshToken(refreshJwtToken)
+                .build();
     }
 
 
     public Authentication getAuthentication(String token){
+
+        //토큰 복호화~~
         Claims claims = Jwts
                 .parserBuilder()
                 .setSigningKey(key)
@@ -70,11 +88,13 @@ public class TokenProvider implements InitializingBean {
                 .getBody();
 
 
+        // 클레임에서 권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
+        // UserDetails 객체를 만들어서 Authentication 리턴
         User principal = new User(claims.getSubject(),"", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
@@ -97,11 +117,4 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
-
-
-
-
-
-
-
 }

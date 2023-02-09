@@ -14,10 +14,10 @@ import javax.persistence.Id;
 public class RefreshToken {
 
     @Id
-    @Column(name = "rt_key")
+    @Column
     private String key;
 
-    @Column(name = "rt_value")
+    @Column
     private String value;
 
     @Builder

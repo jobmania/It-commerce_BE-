@@ -66,7 +66,7 @@ public class SecurityConfig  {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/hello").permitAll()
-                .antMatchers("/api/auth/**").permitAll() // 로그인 // 회원가입
+                .antMatchers("/user/auth/**").permitAll() // 로그인 // 회원가입
                 .anyRequest().authenticated()
 
 

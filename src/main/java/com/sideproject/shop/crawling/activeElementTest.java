@@ -11,7 +11,7 @@ public class activeElementTest {
         WebDriver driver2 = new ChromeDriver();
         try {
             driver.get("http://www.google.com");
-            driver.findElement(By.cssSelector("[name='q']")).sendKeys("검색할 키워드 ");
+            driver.findElement(By.cssSelector("[name='q']")).sendKeys("iphone");
 
             // Get attribute of current active element
             String attr = driver.switchTo().activeElement().getAttribute("title");
