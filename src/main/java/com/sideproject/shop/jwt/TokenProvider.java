@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
+@PropertySource(value = "classpath:application-secret.yml")
 public class TokenProvider  {
 
 
@@ -35,11 +36,11 @@ public class TokenProvider  {
 
     @Autowired
     public TokenProvider(
-//            @Value("${jwt.secretKey}") String secret,  // prpoerties에서 들고옴.
-//             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds
+            @Value("${jwt.secret}") String secret,  // prpoerties에서 들고옴.
+             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds
     ) {
-        this.tokenValidityInMilliseconds = 3600 * 1000;
-        byte[] keyBytes = Decoders.BASE64.decode("SDFGSDFGPZZLLZSDFJ0023FAPFHAPOSDHAKP6519684616515JEQPFAXCVNMOADFNP23452GPAS9DUHFALSDJNVAPERU");
+        this.tokenValidityInMilliseconds = tokenValidityInSeconds;
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 

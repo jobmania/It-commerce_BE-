@@ -20,6 +20,10 @@ spring:
         format_sql: true
         show_sql: true
 
+# 깃 이그노어 추가!
+  profiles:
+    include: secret
+
 #logback \uC0AC\uC6A9
 logging:
   level:
