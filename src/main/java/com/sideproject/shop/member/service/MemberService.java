@@ -4,6 +4,7 @@ import com.sideproject.shop.ResponseDto;
 import com.sideproject.shop.jwt.RefreshToken;
 import com.sideproject.shop.jwt.TokenProvider;
 import com.sideproject.shop.member.entity.Member;
+import com.sideproject.shop.member.entity.dto.MemberDto;
 import com.sideproject.shop.member.entity.dto.MemberRequestDto;
 import com.sideproject.shop.member.entity.dto.MemberResponseDto;
 import com.sideproject.shop.jwt.TokenDto;
@@ -27,12 +28,12 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public ResponseDto<?> signUpMember(MemberRequestDto memberRequestDto) {
-        if (memberRepository.existsByEmail(memberRequestDto.getUser_id())) {
+    public ResponseDto<?> signUpMember(MemberDto.Request memberDto) {
+        if (memberRepository.existsByEmail(memberDto.getUser_id())) {
             return ResponseDto.fail("200","가입되어 있습니다.");
-        }
+        } // 예외처리를 한꺼번에 할.
 
-        Member member = memberRequestDto.toMember(passwordEncoder);
+        Member member = memberDto.toMember(passwordEncoder);
         return ResponseDto.ok(MemberResponseDto.of(memberRepository.save(member)),"성공~");
     }
 
@@ -93,5 +94,8 @@ public class MemberService {
     }
 
 
+    public Object findMemberInfoById(Long currentMemberId) {
 
+        return ResponseDto.ok("엄", "");
+    }
 }
