@@ -22,8 +22,8 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
-    private String memberName;
+//    @Column(nullable = false, unique = true)
+//    private String memberName;
 
     private String password;
 
