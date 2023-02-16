@@ -4,10 +4,12 @@ import com.sideproject.shop.jwt.TokenProvider;
 import com.sideproject.shop.member.entity.dto.MemberDto;
 import com.sideproject.shop.member.entity.dto.MemberRequestDto;
 import com.sideproject.shop.member.entity.dto.MemberResponseDto;
+import com.sideproject.shop.member.service.MemberDetailsImpl;
 import com.sideproject.shop.member.service.MemberService;
 import com.sideproject.shop.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +38,9 @@ public class MemberController {
 
 
     @PostMapping("/auth/login") // 로그인
-    public ResponseEntity<Object> signInMember(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response){
+    public ResponseEntity<Object> signInMember(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response
+
+    ){
 
         return ResponseEntity.ok(memberService.loginMember(memberRequestDto,response));
     }
